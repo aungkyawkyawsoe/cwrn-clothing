@@ -5,7 +5,6 @@ import SignIn from '../../components/SignIn/SignIn';
 import SignUp from '../../components/SignUp/SignUp';
 
 
-
 const Auth = () => {
     return (
         <div className='auth'>

@@ -26,7 +26,7 @@ const SignIn = () => {
     };
 
     return (
-        <div className='auth'>
+        <div className='sign-in'>
             <h2>I already have an account</h2>
             <span>Sign with your email and password</span>
 

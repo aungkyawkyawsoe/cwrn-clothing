@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import FormInput from '../FormInput/FormInput';
-import CustomerButton from '../CustomButton/CustomButton';
 
 import { auth, createUserProfileDocument } from '../../firebase/FirebaseUtils';
 
@@ -19,18 +18,37 @@ const SignUp = () => {
 
     const handleChange = e => {
         const { name, value } = e.target;
+
         setState(prevState => ({ ...prevState, [name]: value }));
+
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
-        setState({
-            displayName: '',
-            email: '',
-            password: '',
-            comfirmPassword: ''
-        });
+        const { displayName, email, password, confirmPassword } = state;
+
+        if(password !== confirmPassword) {
+            alert("Password don't match");
+            return;
+        }
+
+        try {
+            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+
+            await createUserProfileDocument(user, { displayName });
+
+            setState({ 
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+             });
+        } catch(e) {
+            console.error(e);
+            
+        }
+        
     };
 
 
@@ -73,7 +91,7 @@ const SignUp = () => {
                     label='Confirm Password'
                     required />
 
-                <CustomButton type='submit'></CustomButton>
+                <CustomButton type='submit'>SIGN UP</CustomButton>
             </form>
         </div>
     )
