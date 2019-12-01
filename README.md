@@ -22,4 +22,24 @@ Export structured data, You can destructure anything you like.
     cart => cart.hidden
 );`
 
+When we using `connect` from `react-redux` npm package to get app redux state, If you want to use multiple selector in child component. You can use with `createStructuredSelector`
+
+You Need to import
+
+`import { createStructuredSelector } from 'reselect';`
+
+- From
+    - `const mapStateToProps = state => ({
+            currentUser: selectCurrentUser(state),
+            hidden: selectCartHidden(state)
+    });`
+
+- To
+    - `const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
+});`
+
+    - Here we don't need to pass any state to the selector function, only method reference.
+
 
