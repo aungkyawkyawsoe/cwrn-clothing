@@ -12,7 +12,6 @@ import CartDropdown from '../CartDropdown/CartDropdown';
 
 const Header = ({ currentUser, hidden }) => {
 
-
     return (
         <div className='header'>
             <Link className='logo-container' to='/'>
