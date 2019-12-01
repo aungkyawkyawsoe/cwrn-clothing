@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.scss';
@@ -8,12 +8,12 @@ import HomePage from './pages/Home/Home';
 import Header from './components/Header/Header';
 import AuthPage from './pages/Auth/Auth';
 import { auth, createUserProfileDocument } from './firebase/FirebaseUtils';
-import { setCurrentUser } from './redux/actions/userAction';
-
+import { setCurrentUser } from './redux/actions/userReducer';
 
 
 class App extends Component {
-  
+
+
   unsubscribeFromAuth = null;
 
   componentDidMount() {
@@ -26,14 +26,14 @@ class App extends Component {
 
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
+            id: snapShot.id,
+            ...snapShot.data()
           });
-        });        
-      } 
+        });
+      }
 
       setCurrentUser(userAuth);
-      
+
     });
   }
 
@@ -44,16 +44,22 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/auth' component={AuthPage} />
+          <Route exact path='/auth' render={()=> this.props.currentUser ? <Redirect to='/'/> : <AuthPage/>}/>
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
 
-export default connect(null, { setCurrentUser })(App);
+export default connect(
+  mapStateToProps,
+  { setCurrentUser }
+)(App);
