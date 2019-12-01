@@ -22,8 +22,7 @@ export default (state = initialState, action) => {
                     cartItems: state.cartItems.map(cartItem => 
                     cartItem.id === action.payload.id ? {
                         ...cartItem,
-                        quantity: cartItem.quantity + 1,
-                        price: cartItem.price + action.payload.price
+                        quantity: cartItem.quantity + 1                        
                     } : cartItem)
                 };
             } 
