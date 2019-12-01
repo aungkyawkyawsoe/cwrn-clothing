@@ -8,7 +8,7 @@ import HomePage from './pages/Home/Home';
 import Header from './components/Header/Header';
 import AuthPage from './pages/Auth/Auth';
 import { auth, createUserProfileDocument } from './firebase/FirebaseUtils';
-import { setCurrentUser } from './redux/actions/userReducer';
+import { setCurrentUser } from './redux/actions/userAction';
 
 
 class App extends Component {
