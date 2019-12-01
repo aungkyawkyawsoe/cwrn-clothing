@@ -1,6 +1,6 @@
 ## Crown Clothing E-commerce
-version 1.0.0
-
+### version 1.0.0
+#### E-commerce application for clothing 
 ---
 
 ### `Reselect` for Redux store

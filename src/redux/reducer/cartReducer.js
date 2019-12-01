@@ -1,5 +1,5 @@
-import { SET_TOGGLE_HIDDEN, ADD_ITEM } from "../actions/types";
-
+import { SET_TOGGLE_HIDDEN, ADD_ITEM, CLEAR_ITEM_FROM_CART, REMOVE_ITEM } from "../actions/types";
+import { addItemToCart, removeItemFromCart } from "../utils/cartUtils";
 
 const initialState = {
     hidden: true,
@@ -14,23 +14,20 @@ export default (state = initialState, action) => {
                 hidden: !state.hidden
             };
         case ADD_ITEM:
-            const existingCartItem = state.cartItems.find(cartItem => cartItem.id === action.payload.id);
-
-            if(existingCartItem) {
-                return {
-                    ...state,
-                    cartItems: state.cartItems.map(cartItem => 
-                    cartItem.id === action.payload.id ? {
-                        ...cartItem,
-                        quantity: cartItem.quantity + 1                        
-                    } : cartItem)
-                };
-            } 
-
             return {
                 ...state,
-                cartItems: [ ...state.cartItems, {...action.payload, quantity: 1 } ]
+                cartItems: addItemToCart(state.cartItems, action.payload)
             }    
+        case CLEAR_ITEM_FROM_CART:
+            return {
+                ...state,
+                cartItems: state.cartItems.filter(cartItem => cartItem.id !== action.payload.id)
+            }; 
+        case REMOVE_ITEM:
+            return {
+                ...state,
+                cartItems: removeItemFromCart(state.cartItems, action.payload)
+            }
         default:
             return state;
     }
