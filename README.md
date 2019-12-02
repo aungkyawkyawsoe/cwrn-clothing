@@ -42,4 +42,45 @@ You Need to import
 
     - Here we don't need to pass any state to the selector function, only method reference.
 
+### Redux persist store
+To store data from redux storage permanently.
 
+#### Installing dependency
+- `npm i redux-persist`
+
+#### Configuration
+And then `import` in `store.js` 
+- `import { persistStore } from 'redux-persist';`
+
+In store.js you can export what you want to store permanently by wrappig `persistStore`, for eg:
+- `export const store = createStore(root, 
+    composeWithDevTools(
+        applyMiddleware(...middlewares)
+    )
+  );`
+
+-  `
+  export const persistor = persistStore(store);
+  `
+
+#### In root reducer
+Import module in root reducer
+- `import { persistReducer } from 'redux-persist';`
+- `import storage from 'redux-persist/lib/storage';`
+
+#### Config for Redux-Persist
+JSON Object Config 
+- `const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['cart']
+}`
+
+And then export like that
+
+- `const rootReducer = combineReducers({
+    user: userReducer,
+    cart: cartReducer
+   });`
+
+- `export default persistReducer(persistConfig, rootReducer);`
