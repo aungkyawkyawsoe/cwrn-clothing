@@ -54,14 +54,8 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckOutPage}/>
-          <Route exact path='/auth' render={() =>
-            this.props.currentUser ? (
-              <Redirect to='/' />
-            ) : (
-                <AuthPage />
-            )
-          }/>
+          <Route exact path='/checkout' component={ CheckOutPage }/>
+          <Route exact path='/auth' render={() => this.props.currentUser ? <Redirect to='/' /> : <AuthPage /> }/>
         </Switch>
       </div>
     );
