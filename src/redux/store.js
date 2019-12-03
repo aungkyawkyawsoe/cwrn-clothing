@@ -6,14 +6,13 @@ import { persistStore } from 'redux-persist';
 
 import root from './reducer';
 
-
 const middlewares = [thunk];
 
-export const store = createStore(root, 
-    composeWithDevTools(
-        applyMiddleware(...middlewares)
-    )
-);
+const config = process.env.NODE_ENV === 'development' ? composeWithDevTools(
+    applyMiddleware(...middlewares)
+) : applyMiddleware(...middlewares);
+
+export const store = createStore(root, config);
 
 export const persistor = persistStore(store);
 
