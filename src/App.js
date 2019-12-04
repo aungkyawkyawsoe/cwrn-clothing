@@ -13,6 +13,7 @@ import { auth, createUserProfileDocument } from './firebase/FirebaseUtils';
 import { setCurrentUser } from './redux/actions/userAction';
 import { selectCurrentUser } from './redux/selector/userSelector';
 
+
 class App extends Component {
 
   unsubscribeFromAuth = null;
@@ -33,7 +34,7 @@ class App extends Component {
         });
       }
 
-      setCurrentUser(userAuth);
+      setCurrentUser(userAuth);      
 
     });
   }
@@ -58,10 +59,11 @@ class App extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser  
 });
 
 export default connect(
   mapStateToProps,
   { setCurrentUser }
 )(App);
+
